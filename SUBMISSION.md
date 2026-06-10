@@ -1,8 +1,8 @@
 # FIFA World Cup 2026 — Bracket Challenge Submission
 
-**Generated:** 2026-06-09, from **live Polymarket odds** (60,000-sim Monte-Carlo).
-**Total expected points:** ~1705  (group 1313 + knockout 392)
-**Champion pick:** 🏆 **France**  (P(actually champion) ≈ 0.151)
+**Generated:** 2026-06-10, from **live Polymarket odds** (60,000-sim Monte-Carlo).
+**Total expected points:** ~1705  (group 1315 + knockout 391)
+**Champion pick:** 🏆 **Spain**  (P(actually champion) ≈ 0.150)
 
 > Reproduce with: `conda run -n worldcup-bracket python solve.py --sims 60000`
 > Re-run near the 11 June lockout for final odds — see `SOURCES.md`.
@@ -82,25 +82,25 @@
 ### Semifinals
 | Match | Pick | over |
 |-------|------|------|
-| M101 | **France** | Spain |
+| M101 | **Spain** | France |
 | M102 | **England** | Portugal |
 
 ### Final
 | Match | Pick | over |
 |-------|------|------|
-| M104 | 🏆 **France** | England |
+| M104 | 🏆 **Spain** | England |
 
 ---
 
 ## Expected-points breakdown
 | Stage | EV |
 |-------|----|
-| Group stage | 1313.2 |
-| Reach R16 (20 pts each) | 188.9 |
-| Reach QF (30) | 104.3 |
-| Reach SF (40) | 52.7 |
-| Reach Final (75) | 30.9 |
-| Champion (100) | 15.1 |
+| Group stage | 1314.8 |
+| Reach R16 (20 pts each) | 188.0 |
+| Reach QF (30) | 103.8 |
+| Reach SF (40) | 52.6 |
+| Reach Final (75) | 31.1 |
+| Champion (100) | 15.0 |
 | **TOTAL** | **~1705** |
 
-*Final four pick: France, Spain, England, Portugal. France over England in the final.*
+*Final four pick: Spain, France, England, Portugal. Spain over England in the final.*
