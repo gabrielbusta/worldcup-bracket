@@ -1,0 +1,252 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0d1545}
+.wrap{background:#0d1545;padding:16px 16px 24px;font-family:system-ui,sans-serif;overflow-x:auto;min-height:100vh}
+.header{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.header h1{color:#fff;font-size:16px;font-weight:700;letter-spacing:.3px}
+.header span{color:#fbbf24;font-size:11px;font-weight:700;letter-spacing:.5px}
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tab{background:rgba(255,255,255,0.1);color:#cdd6f5;border:1px solid rgba(150,170,235,0.3);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer}
+.tab.active{background:#fbbf24;color:#0d1545;border-color:#fbbf24}
+.view{display:none}
+.view.on{display:block}
+.stage{position:relative;overflow:visible}
+#stageInner{transform-origin:top left}
+.lbls{position:relative;margin-bottom:8px;height:14px}
+.lbl{color:#fbbf24;font-size:9px;font-weight:700;letter-spacing:.6px;text-align:center;text-transform:uppercase;position:absolute}
+.mc{position:absolute;background:#1a2468;border:1px solid rgba(150,170,235,0.35);border-radius:7px;overflow:hidden}
+.mt{display:flex;align-items:center;gap:5px;padding:5px 7px}
+.mt.w{background:rgba(255,255,255,0.22)}
+.mf{width:19px;height:13px;border-radius:2px;flex-shrink:0;background-size:cover !important;background-position:center !important}
+.mn{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mn.win{color:#ffffff}
+.mn.lose{color:#aeb9e0}
+.md{height:1px;background:rgba(150,170,235,0.25)}
+.champ-card{position:absolute;background:#d97706;border:1px solid #fbbf24;border-radius:10px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.champ-card .ct{color:#fff;font-size:8px;font-weight:800;letter-spacing:.6px;margin-bottom:6px}
+.champ-card .cf{width:38px;height:25px;border-radius:3px;margin-bottom:6px;background-size:cover !important;background-position:center !important}
+.champ-card .cn{color:#fff;font-size:15px;font-weight:800}
+.ev-strip{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.ev-pill{background:#1a2468;border:1px solid rgba(150,170,235,0.3);border-radius:6px;padding:6px 11px}
+.ev-pill .el{color:#9aa6cc;font-size:9px;font-weight:600;letter-spacing:.4px}
+.ev-pill .ev{color:#fbbf24;font-size:14px;font-weight:800}
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gcard{background:#1a2468;border:1px solid rgba(150,170,235,0.25);border-radius:9px;padding:10px}
+.glabel{color:#fbbf24;font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:8px}
+.grow{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:5px;margin-bottom:3px}
+.grow.p1{background:rgba(255,255,255,0.16)}
+.grow.p2{background:rgba(255,255,255,0.09)}
+.grow.p3{background:rgba(255,255,255,0.04)}
+.gpos{font-size:10px;font-weight:800;width:13px;text-align:center;flex-shrink:0}
+.gpos.a{color:#fbbf24}.gpos.b{color:#d6deff}.gpos.c{color:#8a96c4}.gpos.d{color:#6a76a4}
+.gf{width:21px;height:14px;border-radius:2px;flex-shrink:0;background-size:cover !important;background-position:center !important}
+.gn{font-size:11px;font-weight:700}
+.gn.q{color:#eef2ff}.gn.o{color:#8a96c4}
+.gadv{margin-top:12px;background:#1a2468;border:1px solid rgba(150,170,235,0.25);border-radius:9px;padding:11px 13px}
+.gadv .h{color:#fbbf24;font-size:11px;font-weight:800;letter-spacing:.5px;margin-bottom:6px}
+.gadv .b{color:#cdd6f5;font-size:11px;line-height:1.6}
+</style>
+<div class="wrap">
+  <div class="header">
+    <h1>FIFA World Cup 2026 — Bracket Submission</h1>
+    <span>SPAIN TO WIN · ~1702 EV PTS</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tb-bracket" onclick="show('bracket')">Knockout Bracket</button>
+    <button class="tab" id="tb-groups" onclick="show('groups')">Group Stage</button>
+  </div>
+
+  <div class="view on" id="v-bracket">
+    <div class="stage" id="stage">
+      <div id="stageInner">
+        <div class="lbls" id="lbls"></div>
+        <div id="board" style="position:relative"></div>
+      </div>
+    </div>
+    <div class="ev-strip">
+      <div class="ev-pill"><div class="el">TOTAL EV</div><div class="ev">~1702</div></div>
+      <div class="ev-pill"><div class="el">GROUP STAGE</div><div class="ev">1308</div></div>
+      <div class="ev-pill"><div class="el">KNOCKOUT</div><div class="ev">394</div></div>
+      <div class="ev-pill"><div class="el">P(SPAIN CHAMPION)</div><div class="ev">15.5%</div></div>
+    </div>
+  </div>
+
+  <div class="view" id="v-groups">
+    <div class="ggrid" id="ggrid"></div>
+    <div class="gadv">
+      <div class="h">8 best third-placed teams → advance to Round of 32</div>
+      <div class="b">Czechia · Bosnia and Herzegovina · Scotland · Paraguay · Ivory Coast · Sweden · Iran · Saudi Arabia</div>
+    </div>
+  </div>
+</div>
+<script>
+const F={"Mexico":"mx","South Korea":"kr","Czechia":"cz","South Africa":"za","Switzerland":"ch","Canada":"ca","Bosnia and Herzegovina":"ba","Qatar":"qa","Brazil":"br","Morocco":"ma","Scotland":"gb-sct","Haiti":"ht","USA":"us","Türkiye":"tr","Paraguay":"py","Australia":"au","Germany":"de","Ecuador":"ec","Ivory Coast":"ci","Curaçao":"cw","Netherlands":"nl","Japan":"jp","Sweden":"se","Tunisia":"tn","Belgium":"be","Egypt":"eg","Iran":"ir","New Zealand":"nz","Spain":"es","Uruguay":"uy","Saudi Arabia":"sa","Cape Verde":"cv","France":"fr","Norway":"no","Senegal":"sn","Iraq":"iq","Argentina":"ar","Austria":"at","Algeria":"dz","Jordan":"jo","Portugal":"pt","Colombia":"co","DR Congo":"cd","Uzbekistan":"uz","England":"gb-eng","Croatia":"hr","Ghana":"gh","Panama":"pa"};
+function fi(t){const c=F[t];return c?`<span class="fi fi-${c} mf"></span>`:'<span class="mf" style="background:#223"></span>';}
+function gflag(t){const c=F[t];return c?`<span class="fi fi-${c} gf"></span>`:'<span class="gf" style="background:#223"></span>';}
+
+const GROUPS={
+  A:["Mexico","South Korea","Czechia","South Africa"],
+  B:["Switzerland","Canada","Bosnia and Herzegovina","Qatar"],
+  C:["Brazil","Morocco","Scotland","Haiti"],
+  D:["USA","Türkiye","Paraguay","Australia"],
+  E:["Germany","Ecuador","Ivory Coast","Curaçao"],
+  F:["Netherlands","Japan","Sweden","Tunisia"],
+  G:["Belgium","Egypt","Iran","New Zealand"],
+  H:["Spain","Uruguay","Saudi Arabia","Cape Verde"],
+  I:["France","Norway","Senegal","Iraq"],
+  J:["Argentina","Austria","Algeria","Jordan"],
+  K:["Portugal","Colombia","DR Congo","Uzbekistan"],
+  L:["England","Croatia","Ghana","Panama"]
+};
+
+const ROUNDS=[
+  [
+    {w:"Germany",l:"Scotland"},{w:"France",l:"Sweden"},
+    {w:"Canada",l:"South Korea"},{w:"Netherlands",l:"Morocco"},
+    {w:"Colombia",l:"Croatia"},{w:"Spain",l:"Austria"},
+    {w:"USA",l:"Bosnia and Herzegovina"},{w:"Belgium",l:"Czechia"},
+    {w:"Brazil",l:"Japan"},{w:"Norway",l:"Ecuador"},
+    {w:"Mexico",l:"Saudi Arabia"},{w:"England",l:"Ivory Coast"},
+    {w:"Argentina",l:"Uruguay"},{w:"Türkiye",l:"Egypt"},
+    {w:"Switzerland",l:"Iran"},{w:"Portugal",l:"Paraguay"}
+  ],
+  [
+    {w:"France",l:"Germany"},{w:"Netherlands",l:"Canada"},
+    {w:"Spain",l:"Colombia"},{w:"Belgium",l:"USA"},
+    {w:"Brazil",l:"Norway"},{w:"England",l:"Mexico"},
+    {w:"Argentina",l:"Türkiye"},{w:"Portugal",l:"Switzerland"}
+  ],
+  [
+    {w:"France",l:"Netherlands"},{w:"Spain",l:"Belgium"},
+    {w:"England",l:"Brazil"},{w:"Portugal",l:"Argentina"}
+  ],
+  [
+    {w:"Spain",l:"France"},{w:"England",l:"Portugal"}
+  ],
+  [
+    {w:"Spain",l:"England"}
+  ]
+];
+
+const CARD_W=116, CARD_H=46, PITCH=54, COL_GAP=38, TOP=2;
+const board=document.getElementById('board');
+const lbls=document.getElementById('lbls');
+
+function cardHtml(x,y,m){
+  return `<div class="mc" style="left:${x}px;top:${y}px;width:${CARD_W}px">
+    <div class="mt w">${fi(m.w)}<span class="mn win">${m.w.toUpperCase().slice(0,11)}</span></div>
+    <div class="md"></div>
+    <div class="mt">${fi(m.l)}<span class="mn lose">${m.l.toUpperCase().slice(0,11)}</span></div>
+  </div>`;
+}
+function yFor(round,i){
+  if(round===0) return TOP + i*PITCH;
+  return (yFor(round-1,2*i)+yFor(round-1,2*i+1))/2;
+}
+
+const xCol=[];
+for(let r=0;r<ROUNDS.length;r++) xCol.push(r*(CARD_W+COL_GAP));
+const champX=xCol[ROUNDS.length-1]+CARD_W+COL_GAP;
+const champW=98, champH=90;
+const totalH=15*PITCH+CARD_H;
+const boardW=champX+champW+10;
+
+let html='';
+const coords=[];
+ROUNDS.forEach((round,r)=>{
+  coords[r]={};
+  round.forEach((m,i)=>{
+    const y=yFor(r,i);
+    html+=cardHtml(xCol[r],y,m);
+    coords[r][i]={left:xCol[r],right:xCol[r]+CARD_W,y:y+CARD_H/2};
+  });
+});
+
+const finY=coords[ROUNDS.length-1][0].y;
+html+=`<div class="champ-card" style="left:${champX}px;top:${finY-champH/2}px;width:${champW}px">
+  <div class="ct">WORLD CUP WINNER</div>
+  <span class="fi fi-es cf"></span>
+  <div class="cn">Spain</div></div>`;
+
+board.style.height=totalH+'px';
+board.style.width=boardW+'px';
+board.innerHTML=html;
+
+const labels=['Round of 32','Round of 16','Quarterfinals','Semifinals','Final'];
+labels.forEach((t,r)=>{
+  lbls.innerHTML+=`<div class="lbl" style="left:${xCol[r]}px;width:${CARD_W}px">${t}</div>`;
+});
+lbls.innerHTML+=`<div class="lbl" style="left:${champX}px;width:${champW}px">Champion</div>`;
+
+const svgNS="http://www.w3.org/2000/svg";
+const svg=document.createElementNS(svgNS,"svg");
+svg.setAttribute("width",boardW);
+svg.setAttribute("height",totalH);
+svg.style.cssText="position:absolute;top:0;left:0;pointer-events:none;z-index:1";
+board.insertBefore(svg,board.firstChild);
+
+function line(x1,y1,x2,y2){
+  const p=document.createElementNS(svgNS,"path");
+  const mx=(x1+x2)/2;
+  p.setAttribute("d",`M${x1},${y1} H${mx} V${y2} H${x2}`);
+  p.setAttribute("stroke","rgba(180,196,255,0.6)");
+  p.setAttribute("stroke-width","1.4");
+  p.setAttribute("fill","none");
+  svg.appendChild(p);
+}
+for(let r=0;r<ROUNDS.length-1;r++){
+  for(let i=0;i<ROUNDS[r+1].length;i++){
+    const a=coords[r][2*i], b=coords[r][2*i+1], dest=coords[r+1][i];
+    line(a.right,a.y,dest.left,dest.y);
+    line(b.right,b.y,dest.left,dest.y);
+  }
+}
+line(coords[ROUNDS.length-1][0].right,finY,champX,finY);
+
+const ggrid=document.getElementById('ggrid');
+const posCls=['p1','p2','p3',''];
+const posLbl=['a','b','c','d'];
+let ghtml='';
+Object.entries(GROUPS).forEach(([letter,teams])=>{
+  let rows=teams.map((t,i)=>`<div class="grow ${posCls[i]}">
+    <span class="gpos ${posLbl[i]}">${i+1}</span>
+    ${gflag(t)}
+    <span class="gn ${i<2?'q':'o'}">${t}</span>
+  </div>`).join('');
+  ghtml+=`<div class="gcard"><div class="glabel">GROUP ${letter}</div>${rows}</div>`;
+});
+ggrid.innerHTML=ghtml;
+
+const stage=document.getElementById('stage');
+const stageInner=document.getElementById('stageInner');
+const naturalH=totalH+22;
+
+function fitBracket(){
+  if(!document.getElementById('v-bracket').classList.contains('on')) return;
+  stageInner.style.transform='none';
+  const top=stage.getBoundingClientRect().top;
+  const ev=document.querySelector('#v-bracket .ev-strip');
+  const evH=ev.offsetHeight+14;
+  const avail=window.innerHeight-top-evH-28;
+  let scale=avail/naturalH;
+  if(scale>1) scale=1;
+  if(scale<0.45) scale=0.45;
+  stageInner.style.transform='scale('+scale+')';
+  stage.style.height=(naturalH*scale)+'px';
+  stage.style.width=(boardW*scale)+'px';
+}
+
+fitBracket();
+setTimeout(fitBracket,60);
+window.addEventListener('resize',fitBracket);
+
+function show(which){
+  document.getElementById('v-bracket').classList.toggle('on',which==='bracket');
+  document.getElementById('v-groups').classList.toggle('on',which==='groups');
+  document.getElementById('tb-bracket').classList.toggle('active',which==='bracket');
+  document.getElementById('tb-groups').classList.toggle('active',which==='groups');
+  if(which==='bracket') fitBracket();
+}
+</script>
